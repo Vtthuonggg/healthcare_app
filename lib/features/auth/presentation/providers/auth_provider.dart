@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import '../../data/repositoreis/auth_repository.dart';
 import '../../domain/models/login_request.dart';
@@ -42,15 +43,24 @@ class AuthNotifier extends StateNotifier<AuthState> {
     }
   }
 
-  Future<void> login(String email, String password) async {
+  Future<void> login(String username, String password) async {
     state = const AuthState.loading();
-
     try {
-      final request = LoginRequest(username: email, password: password);
+      final request = LoginRequest(username: username, password: password);
       final user = await _authRepository.login(request);
       state = AuthState.authenticated(user);
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 422) {
+        state = const AuthState.error('Tài khoản hoặc mật khẩu không đúng');
+      } else if (e.response?.statusCode == 401) {
+        state = const AuthState.error('Tài khoản hoặc mật khẩu không đúng');
+      } else {
+        state = AuthState.error(
+          e.response?.data['message'] ?? 'Đã có lỗi xảy ra. Vui lòng thử lại',
+        );
+      }
     } catch (e) {
-      state = AuthState.error(e.toString());
+      state = const AuthState.error('Đã có lỗi xảy ra. Vui lòng thử lại');
     }
   }
 

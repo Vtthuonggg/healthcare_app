@@ -10,24 +10,30 @@ class ToastHelper {
   }) {
     MotionToast(
       icon: IconsaxPlusLinear.tick_circle,
-      primaryColor: const Color(0xFFE2F5EA),
-      secondaryColor: const Color(0xFF6FCF97),
+      primaryColor: const Color(0xFF6FCF97),
+      secondaryColor: Colors.white,
       title: Text(
         title,
         style: const TextStyle(
           fontWeight: FontWeight.bold,
-          color: Colors.black87,
+          color: Colors.white,
         ),
       ),
-      description: Text(message, style: const TextStyle(color: Colors.black54)),
+      contentPadding: const EdgeInsets.only(
+        left: 16,
+        right: 16,
+        top: 8,
+        bottom: 8,
+      ),
+      description: Text(message, style: const TextStyle(color: Colors.white)),
       toastAlignment: Alignment.topCenter,
       animationType: AnimationType.slideInFromTop,
-      toastDuration: const Duration(seconds: 3),
-      animationDuration: const Duration(milliseconds: 500),
+      toastDuration: const Duration(seconds: 2),
+      animationDuration: const Duration(milliseconds: 300),
       width: 350,
       height: 80,
       dismissable: true,
-      displaySideBar: true,
+      displaySideBar: false,
       borderRadius: 12,
     ).show(context);
   }
@@ -39,24 +45,30 @@ class ToastHelper {
   }) {
     MotionToast(
       icon: IconsaxPlusLinear.info_circle,
-      primaryColor: const Color(0xFFFBDDDD),
-      secondaryColor: const Color(0xFFEB5758),
+      primaryColor: const Color(0xFFEB5758),
+      secondaryColor: Colors.white,
       title: Text(
         title,
         style: const TextStyle(
           fontWeight: FontWeight.bold,
-          color: Colors.black87,
+          color: Colors.white,
         ),
       ),
-      description: Text(message, style: const TextStyle(color: Colors.black54)),
+      contentPadding: const EdgeInsets.only(
+        left: 16,
+        right: 16,
+        top: 8,
+        bottom: 8,
+      ),
+      description: Text(message, style: const TextStyle(color: Colors.white)),
       toastAlignment: Alignment.topCenter,
       animationType: AnimationType.slideInFromTop,
-      toastDuration: const Duration(seconds: 3),
-      animationDuration: const Duration(milliseconds: 500),
+      toastDuration: const Duration(seconds: 2),
+      animationDuration: const Duration(milliseconds: 300),
       width: 350,
       height: 80,
       dismissable: true,
-      displaySideBar: true,
+      displaySideBar: false,
       borderRadius: 12,
     ).show(context);
   }
@@ -68,24 +80,31 @@ class ToastHelper {
   }) {
     MotionToast(
       icon: IconsaxPlusLinear.warning_2,
-      primaryColor: const Color(0xFFFCF5DB),
-      secondaryColor: const Color(0xFFF2C94C),
+      primaryColor: const Color(0xFFF2C94C),
+      secondaryColor: Colors.white,
+
       title: Text(
         title,
         style: const TextStyle(
           fontWeight: FontWeight.bold,
-          color: Colors.black87,
+          color: Colors.white,
         ),
       ),
-      description: Text(message, style: const TextStyle(color: Colors.black54)),
+      contentPadding: const EdgeInsets.only(
+        left: 16,
+        right: 16,
+        top: 8,
+        bottom: 8,
+      ),
+      description: Text(message, style: const TextStyle(color: Colors.white)),
       toastAlignment: Alignment.topCenter,
       animationType: AnimationType.slideInFromTop,
-      toastDuration: const Duration(seconds: 3),
-      animationDuration: const Duration(milliseconds: 500),
+      toastDuration: const Duration(seconds: 2),
+      animationDuration: const Duration(milliseconds: 300),
       width: 350,
       height: 80,
       dismissable: true,
-      displaySideBar: true,
+      displaySideBar: false,
       borderRadius: 12,
     ).show(context);
   }
@@ -97,24 +116,30 @@ class ToastHelper {
   }) {
     MotionToast(
       icon: IconsaxPlusLinear.info_circle,
-      primaryColor: const Color(0xFFD4E6FB),
-      secondaryColor: const Color(0xFF3081ED),
+      primaryColor: const Color(0xFF3081ED),
+      secondaryColor: Colors.white,
       title: Text(
         title,
         style: const TextStyle(
           fontWeight: FontWeight.bold,
-          color: Colors.black87,
+          color: Colors.white,
         ),
       ),
-      description: Text(message, style: const TextStyle(color: Colors.black54)),
-      toastAlignment: Alignment.topLeft,
+      contentPadding: const EdgeInsets.only(
+        left: 16,
+        right: 16,
+        top: 8,
+        bottom: 8,
+      ),
+      description: Text(message, style: const TextStyle(color: Colors.white)),
+      toastAlignment: Alignment.topCenter,
       animationType: AnimationType.slideInFromTop,
-      toastDuration: const Duration(seconds: 3),
-      animationDuration: const Duration(milliseconds: 500),
+      toastDuration: const Duration(seconds: 2),
+      animationDuration: const Duration(milliseconds: 300),
       width: 350,
       height: 80,
       dismissable: true,
-      displaySideBar: true,
+      displaySideBar: false,
       borderRadius: 12,
     ).show(context);
   }

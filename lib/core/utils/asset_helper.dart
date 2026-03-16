@@ -9,6 +9,6 @@ class AssetHelper {
   static String icon(String name) => '$_iconPath/$name';
 
   // Common images
-  static String get logo => image('logo.jpg');
+  static String get logo => image('logo.png');
   static String get placeholder => image('placeholder.jpg');
 }

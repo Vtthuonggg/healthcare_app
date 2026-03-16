@@ -44,17 +44,18 @@ dependencies:
   iconsax_plus: ^1.0.0
   flutter_launcher_icons: ^0.13.1
   flutter_secure_storage: ^10.0.0
-  lottie: ^3.3.2
   persistent_bottom_nav_bar_v2: ^6.3.1
   url_launcher: ^6.3.2
   webview_flutter: ^4.13.1
   flutter_html: ^3.0.0
   health_icons: ^0.0.2
   salomon_bottom_bar: ^3.3.2
+  flutter_screenutil: ^5.9.3
 
   flutter_localizations:
     sdk: flutter
 
+# Build icons: "flutter pub run flutter_launcher_icons:main"
 flutter_launcher_icons:
   android: true
   ios: true
@@ -86,7 +87,6 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/lottie/loading.json
     - assets/images/
     - .env
 

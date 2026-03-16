@@ -7,7 +7,7 @@ import '../../../account/presentation/pages/account_page.dart';
 import '../../../auth/presentation/pages/login_page.dart';
 import '../../../auth/presentation/providers/auth_provider.dart';
 import '../../../auth/presentation/providers/auth_state.dart';
-import '../../../home/presentation/pages/home_page.dart';
+import '../../../dashboard/presentation/pages/dashboard_page.dart';
 
 final currentIndexProvider = StateProvider<int>((ref) => 0);
 
@@ -29,7 +29,7 @@ class MainPage extends ConsumerWidget {
     final currentIndex = ref.watch(currentIndexProvider);
 
     final List<Widget> pages = [
-      const HomePage(),
+      const DashBoardPage(),
       const BookingPage(),
       const LongTermPage(),
       const NotificationPage(),
@@ -70,6 +70,7 @@ class MainPage extends ConsumerWidget {
           ],
         ),
       ),
+
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(

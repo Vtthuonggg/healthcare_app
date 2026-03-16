@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:health_icons/health_icons.dart';
+import 'package:healthcare_app/features/dashboard/presentation/pages/contact_page.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 
 import '../../../../core/theme/app_theme.dart';
@@ -21,7 +23,7 @@ class FeatureTable extends StatelessWidget {
         icon: IconsaxPlusLinear.call,
         label: 'Liên hệ',
         onTap: () {
-          // TODO: Navigate to contact
+          context.push(ContactPage.path);
         },
       ),
       _FeatureItem(
@@ -79,9 +81,9 @@ class FeatureTable extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
-          crossAxisSpacing: 12,
-          mainAxisSpacing: 16,
-          childAspectRatio: 0.75,
+          crossAxisSpacing: 22,
+          mainAxisSpacing: 10,
+          childAspectRatio: 0.8,
         ),
         itemCount: features.length,
         itemBuilder: (context, index) {
@@ -92,8 +94,8 @@ class FeatureTable extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  width: 56,
-                  height: 56,
+                  width: 45,
+                  height: 45,
                   decoration: BoxDecoration(
                     color: AppTheme.primaryColor.withOpacity(0.1),
                     shape: BoxShape.circle,
@@ -101,24 +103,21 @@ class FeatureTable extends StatelessWidget {
                   child: Icon(
                     feature.icon,
                     color: AppTheme.primaryColor,
-                    size: 28,
+                    size: 24,
                   ),
                 ),
                 const SizedBox(height: 8),
-                SizedBox(
-                  height: 32,
-                  child: Text(
-                    feature.label,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: Color(0xff262A37),
-                      fontWeight: FontWeight.w500,
-                      height: 1.3,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+                Text(
+                  feature.label,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Color(0xff262A37),
+                    fontWeight: FontWeight.w500,
+                    height: 1.3,
                   ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ],
             ),

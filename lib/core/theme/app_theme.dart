@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  static const Color primaryColor = Color(0xFF50BE9D);
+  static const Color primaryColor = Color(0xFF234F9B);
 
   static ThemeData lightTheme = ThemeData(
     appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
@@ -38,10 +38,31 @@ class AppTheme {
       style: ElevatedButton.styleFrom(
         backgroundColor: primaryColor,
         foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-        elevation: 2,
+        elevation: 8,
+        shadowColor: AppTheme.primaryColor.withOpacity(0.3),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        overlayColor: WidgetStateProperty.all(Colors.transparent),
+        splashFactory: NoSplash.splashFactory,
+
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        minimumSize: WidgetStateProperty.all(Size.zero),
+        padding: WidgetStateProperty.all(
+          const EdgeInsets.symmetric(horizontal: 3, vertical: 4),
+        ),
+        foregroundColor: WidgetStateProperty.resolveWith<Color>((
+          Set<WidgetState> states,
+        ) {
+          if (states.contains(WidgetState.pressed)) {
+            return primaryColor.withOpacity(0.5);
+          }
+          return primaryColor;
+        }),
       ),
     ),
     progressIndicatorTheme: const ProgressIndicatorThemeData(
