@@ -12,43 +12,12 @@ import '../../../auth/presentation/providers/auth_state.dart';
 import '../../../auth/domain/models/user.dart';
 import '../../../../core/theme/app_theme.dart';
 
-class AccountPage extends ConsumerStatefulWidget {
+class AccountPage extends ConsumerWidget {
   static const path = '/account';
   const AccountPage({super.key});
 
   @override
-  ConsumerState<AccountPage> createState() => _AccountPageState();
-}
-
-class _AccountPageState extends ConsumerState<AccountPage> {
-  final ScrollController _scrollController = ScrollController();
-  bool _isCollapsed = false;
-  bool _isChangeBackground = false;
-  @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(() {
-      if (_scrollController.offset > 450 && !_isCollapsed) {
-        setState(() => _isCollapsed = true);
-      } else if (_scrollController.offset <= 450 && _isCollapsed) {
-        setState(() => _isCollapsed = false);
-      }
-      if (_scrollController.offset > 50 && !_isChangeBackground) {
-        setState(() => _isChangeBackground = true);
-      } else if (_scrollController.offset <= 50 && _isChangeBackground) {
-        setState(() => _isChangeBackground = false);
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     ScreenUtil.init(context);
 
     final AuthState authState = ref.watch(authProvider);
@@ -56,31 +25,46 @@ class _AccountPageState extends ConsumerState<AccountPage> {
       authenticated: (u) => u,
       orElse: () => null,
     );
+    final background = Colors.grey[50]!;
     return Scaffold(
-      backgroundColor: Colors.grey[50],
-      body: SafeArea(
-        child: CustomScrollView(
-          controller: _scrollController,
-          slivers: [
-            SliverToBoxAdapter(child: _AccountHeader(user: user)),
-            SliverPadding(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 28),
-              sliver: SliverList(
-                delegate: SliverChildListDelegate([
-                  if (user == null) ...[
-                    _LoginPromptCard(
-                      onLogin: () => context.push(LoginPage.path),
-                    ),
-                    16.verticalSpace,
-                  ],
-                  ..._buildSections(context, isLoggedIn: user != null),
-                  28.verticalSpace,
-                  const _AccountFooter(),
-                ]),
-              ),
-            ),
-          ],
+      backgroundColor: background,
+      body: CustomScrollView(
+        physics: const BouncingScrollPhysics(
+          parent: AlwaysScrollableScrollPhysics(),
         ),
+        slivers: [
+          SliverAppBar(
+            backgroundColor: AppTheme.primaryColor,
+            automaticallyImplyLeading: false,
+            expandedHeight: 180,
+            elevation: 0,
+            scrolledUnderElevation: 0,
+            stretch: true,
+            bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(24),
+              child: _AppBarBottomCap(background: background),
+            ),
+            flexibleSpace: FlexibleSpaceBar(
+              background: _AccountHeaderContent(user: user),
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 28),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate([
+                const SizedBox(height: 18),
+                if (user == null) ...[
+                  _LoginPromptCard(onLogin: () => context.push(LoginPage.path)),
+                  16.verticalSpace,
+                ],
+                ..._buildSections(context, isLoggedIn: user != null),
+                28.verticalSpace,
+                const _AccountFooter(),
+                SizedBox(height: kBottomNavigationBarHeight + 24),
+              ]),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -215,115 +199,189 @@ class _AccountPageState extends ConsumerState<AccountPage> {
   }
 }
 
-class _AccountHeader extends StatelessWidget {
-  const _AccountHeader({required this.user});
+class _AccountHeaderContent extends StatelessWidget {
+  const _AccountHeaderContent({required this.user});
+
   final User? user;
 
   @override
   Widget build(BuildContext context) {
     final fullName = user?.fullName ?? '';
     final name = fullName.trim().isEmpty ? 'Khách' : fullName;
-    final subtitle = user?.department?.name ?? user?.role?.roleName ?? ' ';
+    final subtitle = user?.department?.name ?? user?.role?.roleName ?? '';
 
-    return SizedBox(
-      height: 250,
-      child: Stack(
-        children: [
-          ClipPath(
-            clipper: _HeaderClipper(),
-            child: SizedBox(height: 230, width: double.infinity),
-          ),
-          Positioned.fill(
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 34),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Stack(
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            AppTheme.primaryColor,
+            AppTheme.primaryColor.withValues(alpha: 0.88),
+          ],
+        ),
+      ),
+      child: SafeArea(
+        bottom: false,
+        child: Stack(
+          children: [
+            const Positioned(
+              left: -90,
+              top: 18,
+              child: _SoftCircle(size: 200, opacity: 0.10),
+            ),
+            const Positioned(
+              right: -70,
+              top: 64,
+              child: _SoftCircle(size: 160, opacity: 0.08),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                children: [
+                  Transform.translate(
+                    offset: const Offset(0, 20),
+                    child: Row(
                       children: [
-                        CircleAvatar(
-                          radius: 48,
-                          backgroundColor: Colors.grey[200],
-                          child: Icon(
-                            IconsaxPlusLinear.profile_circle,
-                            size: 54,
-                            color: AppTheme.primaryColor.withValues(alpha: 0.9),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: Container(
-                            width: 32,
-                            height: 32,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(16),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withValues(alpha: 0.08),
-                                  blurRadius: 12,
-                                  offset: const Offset(0, 6),
-                                ),
-                              ],
+                        _HeaderAvatar(onCameraTap: () {}),
+                        12.horizontalSpace,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              name,
+                              style: Theme.of(context).textTheme.titleLarge
+                                  ?.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w800,
+                                    letterSpacing: 0.2,
+                                  ),
+                              textAlign: TextAlign.center,
                             ),
-                            child: Icon(
-                              IconsaxPlusLinear.camera,
-                              size: 18,
-                              color: Colors.grey[700],
-                            ),
-                          ),
+                            if (subtitle.trim().isNotEmpty) ...[
+                              6.verticalSpace,
+                              Text(
+                                subtitle,
+                                style: Theme.of(context).textTheme.bodyMedium
+                                    ?.copyWith(
+                                      color: Colors.white.withValues(
+                                        alpha: 0.90,
+                                      ),
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ],
                         ),
                       ],
                     ),
-                    12.verticalSpace,
-                    Text(
-                      name,
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: AppTheme.primaryColor,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    6.verticalSpace,
-                    Text(
-                      subtitle,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: AppTheme.primaryColor,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
 
-class _HeaderClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.lineTo(0, size.height - 70);
-    path.quadraticBezierTo(
-      size.width * 0.5,
-      size.height,
-      size.width,
-      size.height - 70,
-    );
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
+class _AppBarBottomCap extends StatelessWidget {
+  const _AppBarBottomCap({required this.background});
+
+  final Color background;
 
   @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
+  Widget build(BuildContext context) {
+    return Container(
+      height: 24,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: background,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+    );
+  }
+}
+
+class _SoftCircle extends StatelessWidget {
+  const _SoftCircle({required this.size, required this.opacity});
+
+  final double size;
+  final double opacity;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.white.withValues(alpha: opacity),
+      ),
+    );
+  }
+}
+
+class _HeaderAvatar extends StatelessWidget {
+  const _HeaderAvatar({required this.onCameraTap});
+
+  final VoidCallback onCameraTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.10),
+                blurRadius: 18,
+                offset: const Offset(0, 10),
+              ),
+            ],
+          ),
+          padding: const EdgeInsets.all(5),
+          child: CircleAvatar(
+            radius: 43,
+            backgroundColor: Colors.grey[200],
+            child: Icon(
+              IconsaxPlusLinear.profile_circle,
+              size: 54,
+              color: AppTheme.primaryColor.withValues(alpha: 0.9),
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: 0,
+          right: 0,
+          child: Material(
+            color: Colors.white,
+            shape: const CircleBorder(),
+            elevation: 8,
+            shadowColor: Colors.black.withValues(alpha: 0.12),
+            child: InkWell(
+              customBorder: const CircleBorder(),
+              onTap: onCameraTap,
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Icon(
+                  IconsaxPlusLinear.camera,
+                  size: 18,
+                  color: Colors.grey[700],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }
 
 class _LoginPromptCard extends StatelessWidget {

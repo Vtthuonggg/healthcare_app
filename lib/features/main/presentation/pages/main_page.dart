@@ -8,6 +8,7 @@ import '../../../auth/presentation/pages/login_page.dart';
 import '../../../auth/presentation/providers/auth_provider.dart';
 import '../../../auth/presentation/providers/auth_state.dart';
 import '../../../dashboard/presentation/pages/dashboard_page.dart';
+import '../../../profile/presentation/pages/profile_page.dart';
 
 final currentIndexProvider = StateProvider<int>((ref) => 0);
 
@@ -30,7 +31,7 @@ class MainPage extends ConsumerWidget {
 
     final List<Widget> pages = [
       const DashBoardPage(),
-      const BookingPage(),
+      const ProfilePage(),
       const LongTermPage(),
       const NotificationPage(),
       const AccountPage(),
@@ -169,43 +170,6 @@ class MainPage extends ConsumerWidget {
                     : Colors.grey[600],
                 fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class BookingPage extends StatelessWidget {
-  const BookingPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Hồ sơ'), centerTitle: true),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              IconsaxPlusLinear.profile_2user,
-              size: 80,
-              color: Colors.grey[400],
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Hồ sơ',
-              style: Theme.of(
-                context,
-              ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Coming Soon',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
             ),
           ],
         ),
