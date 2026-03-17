@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "152383111099",
+    "project_id": "healthcare-app-8148a",
+    "storage_bucket": "healthcare-app-8148a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:152383111099:android:1cd7620a1ae14fd76d8e9e",
+        "android_client_info": {
+          "package_name": "com.ztech.healthcare.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWr7rXpDcpNpUnfA4RqpnNVMEOybWwM8M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

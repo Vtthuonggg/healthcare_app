@@ -1,8 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:healthcare_app/core/config/env_config.dart';
+import 'package:healthcare_app/firebase_options.dart';
 
 import 'core/router/app_router.dart';
+import 'core/services/notifycation_service.dart';
 import 'core/theme/app_theme.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -15,6 +19,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await EnvConfig.init();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await NotifycationService.instance.initialize();
   await initializeDateFormatting('vi_VN', null);
   runApp(const ProviderScope(child: MyApp()));
 }

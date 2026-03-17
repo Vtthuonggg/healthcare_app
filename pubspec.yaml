@@ -51,6 +51,9 @@ dependencies:
   health_icons: ^0.0.2
   salomon_bottom_bar: ^3.3.2
   flutter_screenutil: ^5.9.3
+  firebase_messaging: ^16.1.2
+  flutter_local_notifications: ^21.0.0
+  firebase_core: ^4.5.0
 
   flutter_localizations:
     sdk: flutter

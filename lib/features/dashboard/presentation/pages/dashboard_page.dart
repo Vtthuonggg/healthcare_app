@@ -110,7 +110,7 @@ class _DashBoardPageState extends ConsumerState<DashBoardPage> {
                       children: [
                         // Background xanh cố định
                         Container(
-                          height: 400,
+                          height: MediaQuery.of(context).size.height / 2.5,
                           decoration: const BoxDecoration(
                             color: AppTheme.primaryColor,
                             borderRadius: BorderRadius.only(

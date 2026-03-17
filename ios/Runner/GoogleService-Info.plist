@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyAqiiS8PeDJF7-zM0v0chF-4uJ_KNXH5u0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>152383111099</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.ztech.healthcare.app</string>
+	<key>PROJECT_ID</key>
+	<string>healthcare-app-8148a</string>
+	<key>STORAGE_BUCKET</key>
+	<string>healthcare-app-8148a.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:152383111099:ios:635114bb0b42b2566d8e9e</string>
+</dict>
+</plist>
