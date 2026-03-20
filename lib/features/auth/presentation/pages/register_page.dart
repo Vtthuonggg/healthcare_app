@@ -275,7 +275,8 @@ class _TermsTextState extends State<_TermsText> {
           ),
           const TextSpan(text: ' và '),
           TextSpan(
-            text: 'Chính sách bảo vệ dữ liệu cá nhân của Bện viện ĐKQT',
+            text:
+                'Chính sách bảo vệ dữ liệu cá nhân của Bệnh viện ĐKQT Hải Phòng',
             style: linkStyle,
             recognizer: _policyRecognizer,
           ),
